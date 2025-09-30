@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <title>To-Do App mit Sentry</title>
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; margin: 2rem; }
+    form { margin-bottom: 1rem; }
+    li { cursor: pointer; }
+    .muted { color: #666; font-size: 0.9rem; }
+    #out { white-space: pre-wrap; background: #f6f6f6; padding: .75rem; border-radius: .5rem; }
+  </style>
+</head>
+<body>
+  <h1>To-Do-Liste</h1>
+  <p class="muted">Klicke auf einen Eintrag, um ihn zu löschen.</p>
+
+  <form id="todo-form">
+    <input id="task" type="text" placeholder="Neue Aufgabe" />
+    <button type="submit">Hinzufügen</button>
+  </form>
+
+  <ul id="todo-list"></ul>
+
+  <hr/>
+  <h3>Fehler provozieren</h3>
+  <button id="btn-client-error">Client-Fehler (ReferenceError)</button>
+  <button id="btn-server-crash">Server-Fehler (/api/crash)</button>
+  <button id="btn-async-crash">Async-Fehler (/api/async-crash)</button>
+  <button id="btn-slow">Langsame Route (/api/slow)</button>
+
+  <h3>Log</h3>
+  <div id="out"></div>
+
+  <!-- Sentry Browser SDK -->
+  <script src="https://browser.sentry-cdn.com/7.120.0/bundle.tracing.min.js" crossorigin="anonymous"></script>
+  <script>
+    Sentry.init({
+      dsn: "https://<Ersatz-zum-Nicht-Auf-Github-veröffentlichen>",
+      integrations: [new Sentry.BrowserTracing()],
+      tracesSampleRate: 1.0, // nur für Performance-Traces
+      sendDefaultPii: true,
+      beforeSend(event) {
+        console.log("Sentry sendet Event:", event);
+        return event; // hier könntest du debuggen, ob Events durchgehen
+      }
+    });
+  </script>
+
+  <script src="app.js"></script>
+</body>
+</html>

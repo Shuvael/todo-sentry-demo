@@ -1,0 +1,18 @@
+{
+  "name": "my-sentry-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sentry/browser": "^10.17.0",
+    "@sentry/node": "^10.16.0",
+    "express": "^5.1.0"
+  }
+}
